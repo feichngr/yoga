@@ -45,6 +45,20 @@
   <div style="width: 50px;"></div>
 </div>
 
+<div id="flex_wrap_row_flex_child_fits_remaining_width" style="width: 100px; flex-direction: row; flex-wrap: wrap; justify-content: space-between">
+  <div style="width: 50px; height: 30px"></div>
+  <div style="flex: 1; flex-direction: row">
+    <div style="width: 50px; height: 30px;"></div>
+  </div>
+</div>
+
+<div id="flex_wrap_row_flex_child_exceeds_remaining_width" style="width: 100px; flex-direction: row; flex-wrap: wrap; justify-content: space-between">
+  <div style="width: 50px; height: 30px"></div>
+  <div style="flex: 1; flex-direction: row">
+    <div style="width: 100px; height: 30px;"></div>
+  </div>
+</div>
+
 <div id="wrap_reverse_row_align_content_flex_start" style="width: 100px; flex-direction: row; flex-wrap: wrap-reverse; align-content: flex-start;">
   <div style="height: 10px; width: 30px;"></div>
   <div style="height: 20px; width: 30px;"></div>

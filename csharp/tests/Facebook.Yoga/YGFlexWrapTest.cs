@@ -545,6 +545,150 @@ namespace Facebook.Yoga
         }
 
         [Test]
+        public void Test_flex_wrap_row_flex_child_fits_remaining_width()
+        {
+            YogaNode root = new YogaNode();
+            root.FlexDirection = YogaFlexDirection.Row;
+            root.JustifyContent = YogaJustify.SpaceBetween;
+            root.Wrap = YogaWrap.Wrap;
+            root.Width = 100;
+
+            YogaNode root_child0 = new YogaNode();
+            root_child0.Width = 50;
+            root_child0.Height = 30;
+            root.Insert(0, root_child0);
+
+            YogaNode root_child1 = new YogaNode();
+            root_child1.FlexDirection = YogaFlexDirection.Row;
+            root_child1.FlexGrow = 1;
+            root_child1.FlexShrink = 1;
+            root_child1.FlexBasis = 0.Percent();
+            root.Insert(1, root_child1);
+
+            YogaNode root_child1_child0 = new YogaNode();
+            root_child1_child0.Width = 50;
+            root_child1_child0.Height = 30;
+            root_child1.Insert(0, root_child1_child0);
+            root.StyleDirection = YogaDirection.LTR;
+            root.CalculateLayout();
+
+            Assert.AreEqual(0f, root.LayoutX);
+            Assert.AreEqual(0f, root.LayoutY);
+            Assert.AreEqual(100f, root.LayoutWidth);
+            Assert.AreEqual(30f, root.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child0.LayoutX);
+            Assert.AreEqual(0f, root_child0.LayoutY);
+            Assert.AreEqual(50f, root_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child0.LayoutHeight);
+
+            Assert.AreEqual(50f, root_child1.LayoutX);
+            Assert.AreEqual(0f, root_child1.LayoutY);
+            Assert.AreEqual(50f, root_child1.LayoutWidth);
+            Assert.AreEqual(30f, root_child1.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1_child0.LayoutX);
+            Assert.AreEqual(0f, root_child1_child0.LayoutY);
+            Assert.AreEqual(50f, root_child1_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child1_child0.LayoutHeight);
+
+            root.StyleDirection = YogaDirection.RTL;
+            root.CalculateLayout();
+
+            Assert.AreEqual(0f, root.LayoutX);
+            Assert.AreEqual(0f, root.LayoutY);
+            Assert.AreEqual(100f, root.LayoutWidth);
+            Assert.AreEqual(30f, root.LayoutHeight);
+
+            Assert.AreEqual(50f, root_child0.LayoutX);
+            Assert.AreEqual(0f, root_child0.LayoutY);
+            Assert.AreEqual(50f, root_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child0.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1.LayoutX);
+            Assert.AreEqual(0f, root_child1.LayoutY);
+            Assert.AreEqual(50f, root_child1.LayoutWidth);
+            Assert.AreEqual(30f, root_child1.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1_child0.LayoutX);
+            Assert.AreEqual(0f, root_child1_child0.LayoutY);
+            Assert.AreEqual(50f, root_child1_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child1_child0.LayoutHeight);
+        }
+
+        [Test]
+        public void Test_flex_wrap_row_flex_child_exceeds_remaining_width()
+        {
+            YogaNode root = new YogaNode();
+            root.FlexDirection = YogaFlexDirection.Row;
+            root.JustifyContent = YogaJustify.SpaceBetween;
+            root.Wrap = YogaWrap.Wrap;
+            root.Width = 100;
+
+            YogaNode root_child0 = new YogaNode();
+            root_child0.Width = 50;
+            root_child0.Height = 30;
+            root.Insert(0, root_child0);
+
+            YogaNode root_child1 = new YogaNode();
+            root_child1.FlexDirection = YogaFlexDirection.Row;
+            root_child1.FlexGrow = 1;
+            root_child1.FlexShrink = 1;
+            root_child1.FlexBasis = 0.Percent();
+            root.Insert(1, root_child1);
+
+            YogaNode root_child1_child0 = new YogaNode();
+            root_child1_child0.Width = 100;
+            root_child1_child0.Height = 30;
+            root_child1.Insert(0, root_child1_child0);
+            root.StyleDirection = YogaDirection.LTR;
+            root.CalculateLayout();
+
+            Assert.AreEqual(0f, root.LayoutX);
+            Assert.AreEqual(0f, root.LayoutY);
+            Assert.AreEqual(100f, root.LayoutWidth);
+            Assert.AreEqual(60f, root.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child0.LayoutX);
+            Assert.AreEqual(0f, root_child0.LayoutY);
+            Assert.AreEqual(50f, root_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child0.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1.LayoutX);
+            Assert.AreEqual(30f, root_child1.LayoutY);
+            Assert.AreEqual(100f, root_child1.LayoutWidth);
+            Assert.AreEqual(30f, root_child1.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1_child0.LayoutX);
+            Assert.AreEqual(0f, root_child1_child0.LayoutY);
+            Assert.AreEqual(100f, root_child1_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child1_child0.LayoutHeight);
+
+            root.StyleDirection = YogaDirection.RTL;
+            root.CalculateLayout();
+
+            Assert.AreEqual(0f, root.LayoutX);
+            Assert.AreEqual(0f, root.LayoutY);
+            Assert.AreEqual(100f, root.LayoutWidth);
+            Assert.AreEqual(60f, root.LayoutHeight);
+
+            Assert.AreEqual(50f, root_child0.LayoutX);
+            Assert.AreEqual(0f, root_child0.LayoutY);
+            Assert.AreEqual(50f, root_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child0.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1.LayoutX);
+            Assert.AreEqual(30f, root_child1.LayoutY);
+            Assert.AreEqual(100f, root_child1.LayoutWidth);
+            Assert.AreEqual(30f, root_child1.LayoutHeight);
+
+            Assert.AreEqual(0f, root_child1_child0.LayoutX);
+            Assert.AreEqual(0f, root_child1_child0.LayoutY);
+            Assert.AreEqual(100f, root_child1_child0.LayoutWidth);
+            Assert.AreEqual(30f, root_child1_child0.LayoutHeight);
+        }
+
+        [Test]
         public void Test_wrap_reverse_row_align_content_flex_start()
         {
             YogaNode root = new YogaNode();
